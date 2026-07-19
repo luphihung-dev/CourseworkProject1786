@@ -22,6 +22,9 @@
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/on_error</item>
         <item name="android:colorBackground">@color/surface_light</item>
+        <item name="colorSurfaceContainer">@color/surface_container_light</item>
+        <item name="colorSurfaceContainerHigh">@color/surface_container_high_light</item>
+        <item name="colorSurfaceContainerHighest">@color/surface_container_high_light</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
