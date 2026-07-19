@@ -5,4 +5,50 @@
     <string name="home_empty_title">No hikes planned yet</string>
     <string name="home_empty_subtitle">Tap the button below to plan your first hike</string>
     <string name="action_add_hike">Add hike</string>
+
+    <!-- Hike form -->
+    <string name="title_new_hike">New hike</string>
+    <string name="title_edit_hike">Edit hike</string>
+    <string name="hint_hike_name">Hike name *</string>
+    <string name="hint_location">Location *</string>
+    <string name="hint_date">Date of the hike *</string>
+    <string name="hint_length">Length *</string>
+    <string name="suffix_km">km</string>
+    <string name="hint_difficulty">Level of difficulty *</string>
+    <string name="hint_description">Description (optional)</string>
+    <string name="hint_duration">Estimated duration (optional)</string>
+    <string name="suffix_hours">hours</string>
+    <string name="hint_terrain">Terrain type (optional)</string>
+    <string name="label_parking">Parking available? *</string>
+    <string name="option_yes">Yes</string>
+    <string name="option_no">No</string>
+    <string name="action_save_hike">Save hike</string>
+    <string name="helper_required_fields">Fields marked with * are required</string>
+
+    <!-- Validation messages -->
+    <string name="error_name_required">Please enter the hike name</string>
+    <string name="error_location_required">Please enter the location</string>
+    <string name="error_date_required">Please pick the date of the hike</string>
+    <string name="error_length_required">Please enter the length of the hike</string>
+    <string name="error_length_invalid">Length must be a positive number</string>
+    <string name="error_difficulty_required">Please select a difficulty level</string>
+    <string name="error_parking_required">Please state whether parking is available</string>
+    <string name="error_duration_invalid">Duration must be a positive number</string>
+
+    <!-- Confirmation dialog -->
+    <string name="confirm_title">Confirm hike details</string>
+    <string name="confirm_message">Please review the details below before saving.</string>
+    <string name="confirm_save">Confirm &amp; save</string>
+    <string name="confirm_edit">Go back &amp; edit</string>
+    <string name="label_name">Name</string>
+    <string name="label_location">Location</string>
+    <string name="label_date">Date</string>
+    <string name="label_parking_short">Parking</string>
+    <string name="label_length">Length</string>
+    <string name="label_difficulty">Difficulty</string>
+    <string name="label_description">Description</string>
+    <string name="label_duration">Est. duration</string>
+    <string name="label_terrain">Terrain</string>
+    <string name="value_not_provided">Not provided</string>
+    <string name="message_hike_saved">Hike saved</string>
 </resources>

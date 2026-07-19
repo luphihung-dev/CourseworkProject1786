@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="difficulty_levels">
+        <item>Easy</item>
+        <item>Moderate</item>
+        <item>Challenging</item>
+        <item>Difficult</item>
+        <item>Expert</item>
+    </string-array>
+
+    <string-array name="terrain_types">
+        <item>Forest trail</item>
+        <item>Mountain</item>
+        <item>Hills</item>
+        <item>Coastal path</item>
+        <item>Riverside</item>
+        <item>Country park</item>
+        <item>Mixed</item>
+    </string-array>
+</resources>
