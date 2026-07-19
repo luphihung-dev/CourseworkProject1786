@@ -76,6 +76,55 @@ public class HikeDao {
         }
     }
 
+    /**
+     * Searches hikes against any combination of criteria. Criteria that are
+     * null (or 0 for lengths) are ignored, so a name-only search and the
+     * advanced multi-field search share this one query builder.
+     *
+     * @param namePrefix     matches names starting with this text
+     * @param locationText   matches locations containing this text
+     * @param minLengthKm    minimum hike length, or 0 to ignore
+     * @param maxLengthKm    maximum hike length, or 0 to ignore
+     * @param dateIso        exact hike date in yyyy-MM-dd, or null to ignore
+     */
+    public List<Hike> search(String namePrefix, String locationText,
+                             double minLengthKm, double maxLengthKm, String dateIso) {
+        StringBuilder selection = new StringBuilder("1=1");
+        List<String> args = new ArrayList<>();
+
+        if (namePrefix != null && !namePrefix.isEmpty()) {
+            selection.append(" AND ").append(HikeDatabaseHelper.COLUMN_NAME).append(" LIKE ?");
+            args.add(namePrefix + "%");
+        }
+        if (locationText != null && !locationText.isEmpty()) {
+            selection.append(" AND ").append(HikeDatabaseHelper.COLUMN_LOCATION).append(" LIKE ?");
+            args.add("%" + locationText + "%");
+        }
+        if (minLengthKm > 0) {
+            selection.append(" AND ").append(HikeDatabaseHelper.COLUMN_LENGTH).append(" >= ?");
+            args.add(String.valueOf(minLengthKm));
+        }
+        if (maxLengthKm > 0) {
+            selection.append(" AND ").append(HikeDatabaseHelper.COLUMN_LENGTH).append(" <= ?");
+            args.add(String.valueOf(maxLengthKm));
+        }
+        if (dateIso != null && !dateIso.isEmpty()) {
+            selection.append(" AND ").append(HikeDatabaseHelper.COLUMN_DATE).append(" = ?");
+            args.add(dateIso);
+        }
+
+        List<Hike> hikes = new ArrayList<>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        try (Cursor cursor = db.query(HikeDatabaseHelper.TABLE_HIKES, null,
+                selection.toString(), args.toArray(new String[0]), null, null,
+                HikeDatabaseHelper.COLUMN_NAME + " COLLATE NOCASE ASC")) {
+            while (cursor.moveToNext()) {
+                hikes.add(fromCursor(cursor));
+            }
+        }
+        return hikes;
+    }
+
     private ContentValues toContentValues(Hike hike) {
         ContentValues values = new ContentValues();
         values.put(HikeDatabaseHelper.COLUMN_NAME, hike.getName());

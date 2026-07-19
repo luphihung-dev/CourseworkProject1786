@@ -80,4 +80,16 @@
     <string name="message_observation_deleted">Observation deleted</string>
     <string name="delete_observation_title">Delete this observation?</string>
     <string name="delete_observation_message">This observation will be removed. This cannot be undone.</string>
+
+    <!-- Search -->
+    <string name="title_search">Search hikes</string>
+    <string name="action_search">Search</string>
+    <string name="hint_search_name">Search by hike name</string>
+    <string name="action_show_filters">Show advanced filters</string>
+    <string name="action_hide_filters">Hide advanced filters</string>
+    <string name="hint_filter_location">Location</string>
+    <string name="hint_filter_min_length">Min length</string>
+    <string name="hint_filter_max_length">Max length</string>
+    <string name="hint_filter_date">Date of the hike</string>
+    <string name="search_no_results">No hikes match your search.</string>
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="search_result_count">
+        <item quantity="one">%d hike found</item>
+        <item quantity="other">%d hikes found</item>
+    </plurals>
+</resources>

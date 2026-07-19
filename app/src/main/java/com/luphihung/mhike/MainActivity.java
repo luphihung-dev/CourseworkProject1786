@@ -41,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
         toolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.action_delete_all) {
+            if (item.getItemId() == R.id.action_search) {
+                startActivity(new Intent(this, SearchActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.action_delete_all) {
                 confirmDeleteAll();
                 return true;
             }

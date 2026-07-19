@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SearchActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".HikeDetailActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
