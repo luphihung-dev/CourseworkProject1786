@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class HikeDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mhike.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Hikes table
     public static final String TABLE_HIKES = "hikes";
@@ -34,6 +34,7 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_OBS_TEXT = "observation";
     public static final String COLUMN_OBS_TIME = "observed_at";
     public static final String COLUMN_OBS_COMMENTS = "comments";
+    public static final String COLUMN_OBS_PHOTO = "photo_path";
 
     private static final String SQL_CREATE_HIKES =
             "CREATE TABLE " + TABLE_HIKES + " ("
@@ -55,6 +56,7 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
                     + COLUMN_OBS_TEXT + " TEXT NOT NULL, "
                     + COLUMN_OBS_TIME + " TEXT NOT NULL, "
                     + COLUMN_OBS_COMMENTS + " TEXT, "
+                    + COLUMN_OBS_PHOTO + " TEXT, "
                     + "FOREIGN KEY (" + COLUMN_OBS_HIKE_ID + ") REFERENCES "
                     + TABLE_HIKES + "(" + COLUMN_ID + ") ON DELETE CASCADE)";
 
@@ -80,6 +82,11 @@ public class HikeDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 2) {
             // Version 2 introduced observations recorded during a hike.
             db.execSQL(SQL_CREATE_OBSERVATIONS);
+        }
+        if (oldVersion == 2) {
+            // Version 3 added an optional photo to each observation.
+            db.execSQL("ALTER TABLE " + TABLE_OBSERVATIONS
+                    + " ADD COLUMN " + COLUMN_OBS_PHOTO + " TEXT");
         }
     }
 }

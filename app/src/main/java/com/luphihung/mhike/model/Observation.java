@@ -17,6 +17,8 @@ public class Observation implements Serializable {
     /** Stored as yyyy-MM-dd HH:mm so timestamps sort correctly as text. */
     private String observedAt;
     private String comments;
+    /** Absolute path of a photo attached to this observation, or null. */
+    private String photoPath;
 
     public Observation() {
     }
@@ -59,5 +61,13 @@ public class Observation implements Serializable {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

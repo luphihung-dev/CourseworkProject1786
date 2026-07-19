@@ -1,9 +1,11 @@
 package com.luphihung.mhike.adapter;
 
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import com.luphihung.mhike.R;
 import com.luphihung.mhike.model.Observation;
 import com.luphihung.mhike.util.Formats;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +68,7 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
         private final TextView observationText;
         private final TextView timeText;
         private final TextView commentsText;
+        private final ImageView photoView;
         private final ImageButton menuButton;
 
         ObservationViewHolder(@NonNull View itemView) {
@@ -72,6 +76,7 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
             observationText = itemView.findViewById(R.id.text_observation);
             timeText = itemView.findViewById(R.id.text_observation_time);
             commentsText = itemView.findViewById(R.id.text_observation_comments);
+            photoView = itemView.findViewById(R.id.image_observation);
             menuButton = itemView.findViewById(R.id.button_observation_menu);
         }
 
@@ -83,6 +88,14 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
                     && !observation.getComments().trim().isEmpty();
             commentsText.setVisibility(hasComments ? View.VISIBLE : View.GONE);
             commentsText.setText(observation.getComments());
+
+            String photoPath = observation.getPhotoPath();
+            if (photoPath != null && new File(photoPath).exists()) {
+                photoView.setImageBitmap(BitmapFactory.decodeFile(photoPath));
+                photoView.setVisibility(View.VISIBLE);
+            } else {
+                photoView.setVisibility(View.GONE);
+            }
 
             menuButton.setOnClickListener(v -> showOptionsMenu(observation));
         }

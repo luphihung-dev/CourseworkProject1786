@@ -1,12 +1,19 @@
 package com.luphihung.mhike;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +34,7 @@ import com.luphihung.mhike.model.Observation;
 import com.luphihung.mhike.util.Formats;
 import com.luphihung.mhike.util.InsetsHelper;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +55,14 @@ public class HikeDetailActivity extends AppCompatActivity
     private ObservationAdapter observationAdapter;
     private RecyclerView observationRecyclerView;
     private TextView noObservationsText;
+
+    /** Launches the camera app; the result lands in the pending photo file. */
+    private ActivityResultLauncher<Uri> takePictureLauncher;
+    /** File the camera is currently writing to, before the user confirms. */
+    private File pendingPhotoFile;
+    /** Photo attached to the observation dialog that is currently open. */
+    private String dialogPhotoPath;
+    private ImageView dialogPhotoPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +95,18 @@ public class HikeDetailActivity extends AppCompatActivity
 
         findViewById(R.id.button_add_observation).setOnClickListener(v ->
                 showObservationDialog(null));
+
+        takePictureLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicture(), photoTaken -> {
+                    if (photoTaken && pendingPhotoFile != null) {
+                        dialogPhotoPath = pendingPhotoFile.getAbsolutePath();
+                        showPhotoPreview();
+                    } else if (pendingPhotoFile != null) {
+                        // The user backed out of the camera; discard the empty file.
+                        pendingPhotoFile.delete();
+                    }
+                    pendingPhotoFile = null;
+                });
     }
 
     @Override
@@ -175,6 +203,12 @@ public class HikeDetailActivity extends AppCompatActivity
         timeInput.setText(Formats.DISPLAY_DATE_TIME.format(selectedTime.getTime()));
         timeInput.setOnClickListener(v -> pickDateAndTime(selectedTime, timeInput));
 
+        // Optional photo attached to the observation.
+        dialogPhotoPath = observationToEdit == null ? null : observationToEdit.getPhotoPath();
+        dialogPhotoPreview = formView.findViewById(R.id.image_observation_photo);
+        showPhotoPreview();
+        formView.findViewById(R.id.button_take_photo).setOnClickListener(v -> launchCamera());
+
         androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setTitle(observationToEdit == null
                         ? R.string.title_new_observation : R.string.title_edit_observation)
@@ -201,6 +235,7 @@ public class HikeDetailActivity extends AppCompatActivity
                             Formats.STORAGE_DATE_TIME.format(selectedTime.getTime()));
                     observation.setComments(commentsInput.getText() == null
                             ? "" : commentsInput.getText().toString().trim());
+                    observation.setPhotoPath(dialogPhotoPath);
 
                     if (observation.getId() == Observation.UNSAVED_ID) {
                         observationDao.insert(observation);
@@ -212,6 +247,33 @@ public class HikeDetailActivity extends AppCompatActivity
                     dialog.dismiss();
                     loadObservations();
                 });
+    }
+
+    /** Creates a destination file and hands it to the device's camera app. */
+    private void launchCamera() {
+        try {
+            File photoDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            pendingPhotoFile = new File(photoDir,
+                    "observation_" + System.currentTimeMillis() + ".jpg");
+            Uri photoUri = FileProvider.getUriForFile(this,
+                    "com.luphihung.mhike.fileprovider", pendingPhotoFile);
+            takePictureLauncher.launch(photoUri);
+        } catch (Exception e) {
+            Toast.makeText(this, R.string.message_photo_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /** Shows the attached photo in the open dialog, or hides the preview. */
+    private void showPhotoPreview() {
+        if (dialogPhotoPreview == null) {
+            return;
+        }
+        if (dialogPhotoPath != null && new File(dialogPhotoPath).exists()) {
+            dialogPhotoPreview.setImageBitmap(BitmapFactory.decodeFile(dialogPhotoPath));
+            dialogPhotoPreview.setVisibility(View.VISIBLE);
+        } else {
+            dialogPhotoPreview.setVisibility(View.GONE);
+        }
     }
 
     /** Opens a date picker followed by a time picker to set the observation time. */

@@ -92,4 +92,13 @@
     <string name="hint_filter_max_length">Max length</string>
     <string name="hint_filter_date">Date of the hike</string>
     <string name="search_no_results">No hikes match your search.</string>
+
+    <!-- Additional features: photos and location -->
+    <string name="action_take_photo">Take photo</string>
+    <string name="label_observation_photo">Observation photo</string>
+    <string name="message_photo_failed">Could not open the camera</string>
+    <string name="action_use_current_location">Use current location</string>
+    <string name="message_locating">Finding your location…</string>
+    <string name="message_location_unavailable">Could not get your location. Check that location is turned on.</string>
+    <string name="message_location_permission_denied">Location permission is needed to fill this in automatically.</string>
 </resources>

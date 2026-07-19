@@ -60,6 +60,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_location"
+                app:endIconContentDescription="@string/action_use_current_location"
+                app:endIconDrawable="@drawable/ic_my_location"
+                app:endIconMode="custom"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText

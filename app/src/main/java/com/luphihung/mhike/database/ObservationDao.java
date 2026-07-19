@@ -67,6 +67,7 @@ public class ObservationDao {
         values.put(HikeDatabaseHelper.COLUMN_OBS_TEXT, observation.getText());
         values.put(HikeDatabaseHelper.COLUMN_OBS_TIME, observation.getObservedAt());
         values.put(HikeDatabaseHelper.COLUMN_OBS_COMMENTS, observation.getComments());
+        values.put(HikeDatabaseHelper.COLUMN_OBS_PHOTO, observation.getPhotoPath());
         return values;
     }
 
@@ -77,6 +78,7 @@ public class ObservationDao {
         observation.setText(cursor.getString(cursor.getColumnIndexOrThrow(HikeDatabaseHelper.COLUMN_OBS_TEXT)));
         observation.setObservedAt(cursor.getString(cursor.getColumnIndexOrThrow(HikeDatabaseHelper.COLUMN_OBS_TIME)));
         observation.setComments(cursor.getString(cursor.getColumnIndexOrThrow(HikeDatabaseHelper.COLUMN_OBS_COMMENTS)));
+        observation.setPhotoPath(cursor.getString(cursor.getColumnIndexOrThrow(HikeDatabaseHelper.COLUMN_OBS_PHOTO)));
         return observation;
     }
 }

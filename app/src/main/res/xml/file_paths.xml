@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Where observation photos taken with the camera are stored. -->
+    <external-files-path
+        name="observation_photos"
+        path="Pictures" />
+</paths>

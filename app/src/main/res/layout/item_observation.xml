@@ -37,6 +37,18 @@
             app:layout_constraintTop_toBottomOf="@id/text_observation"
             tools:text="25 Jul 2026, 09:41" />
 
+        <ImageView
+            android:id="@+id/image_observation"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/label_observation_photo"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/button_observation_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_observation_comments" />
+
         <TextView
             android:id="@+id/text_observation_comments"
             android:layout_width="0dp"

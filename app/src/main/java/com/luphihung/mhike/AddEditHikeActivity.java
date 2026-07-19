@@ -1,5 +1,11 @@
 package com.luphihung.mhike;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -7,8 +13,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.location.LocationManagerCompat;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -22,6 +32,9 @@ import com.luphihung.mhike.util.Formats;
 import com.luphihung.mhike.util.InsetsHelper;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.Executors;
 
 /**
  * Screen for entering a new hike or editing an existing one.
@@ -55,6 +68,8 @@ public class AddEditHikeActivity extends AppCompatActivity {
     /** Hike being edited, or null when creating a new one. */
     private Hike hikeBeingEdited;
     private HikeDao hikeDao;
+    /** Asks for location permission before pre-filling the location field. */
+    private ActivityResultLauncher<String> locationPermissionLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +94,110 @@ public class AddEditHikeActivity extends AppCompatActivity {
         }
 
         findViewById(R.id.button_save).setOnClickListener(v -> onSaveClicked());
+
+        locationPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(), granted -> {
+                    if (granted) {
+                        fillLocationFromDevice();
+                    } else {
+                        Toast.makeText(this, R.string.message_location_permission_denied,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        locationLayout.setEndIconOnClickListener(v -> requestCurrentLocation());
+    }
+
+    /** Entry point of the "use current location" shortcut on the location field. */
+    private void requestCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            fillLocationFromDevice();
+        } else {
+            locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+    }
+
+    /**
+     * Reads the device's position once and reverse-geocodes it into a
+     * readable place name for the location field.
+     */
+    private void fillLocationFromDevice() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager == null) {
+            Toast.makeText(this, R.string.message_location_unavailable, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, R.string.message_locating, Toast.LENGTH_SHORT).show();
+        try {
+            String provider = pickBestProvider(locationManager);
+            LocationManagerCompat.getCurrentLocation(locationManager, provider,
+                    (android.os.CancellationSignal) null,
+                    ContextCompat.getMainExecutor(this), this::onDeviceLocation);
+        } catch (SecurityException | IllegalArgumentException e) {
+            Toast.makeText(this, R.string.message_location_unavailable, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Prefers the fused provider (fast and battery friendly, API 31+), then
+     * the network provider, and only falls back to raw GPS, which can take
+     * a long time to get a first fix indoors.
+     */
+    private String pickBestProvider(LocationManager locationManager) {
+        if (android.os.Build.VERSION.SDK_INT >= 31
+                && locationManager.getAllProviders().contains(LocationManager.FUSED_PROVIDER)) {
+            return LocationManager.FUSED_PROVIDER;
+        }
+        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            return LocationManager.NETWORK_PROVIDER;
+        }
+        return LocationManager.GPS_PROVIDER;
+    }
+
+    private void onDeviceLocation(Location location) {
+        if (location == null) {
+            Toast.makeText(this, R.string.message_location_unavailable, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Geocoder does network I/O, so resolve the place name off the UI thread.
+        Executors.newSingleThreadExecutor().execute(() -> {
+            String placeName = resolvePlaceName(location);
+            runOnUiThread(() -> {
+                locationInput.setText(placeName);
+                locationLayout.setError(null);
+            });
+        });
+    }
+
+    /** Turns coordinates into "locality, country", falling back to raw coordinates. */
+    private String resolvePlaceName(Location location) {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(
+                    location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                StringBuilder name = new StringBuilder();
+                if (address.getLocality() != null) {
+                    name.append(address.getLocality());
+                } else if (address.getSubAdminArea() != null) {
+                    name.append(address.getSubAdminArea());
+                }
+                if (address.getCountryName() != null) {
+                    if (name.length() > 0) {
+                        name.append(", ");
+                    }
+                    name.append(address.getCountryName());
+                }
+                if (name.length() > 0) {
+                    return name.toString();
+                }
+            }
+        } catch (Exception ignored) {
+            // Fall through to the coordinate fallback below.
+        }
+        return String.format(Locale.US, "%.5f, %.5f",
+                location.getLatitude(), location.getLongitude());
     }
 
     private void bindViews() {
