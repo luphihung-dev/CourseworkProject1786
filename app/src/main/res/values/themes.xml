@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MHike" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/forest_primary</item>
+        <item name="colorOnPrimary">@color/forest_on_primary</item>
+        <item name="colorPrimaryContainer">@color/forest_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/forest_on_primary_container</item>
+        <item name="colorSecondary">@color/moss_secondary</item>
+        <item name="colorOnSecondary">@color/moss_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/moss_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/moss_on_secondary_container</item>
+        <item name="colorTertiary">@color/lake_tertiary</item>
+        <item name="colorOnTertiary">@color/lake_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/lake_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/lake_on_tertiary_container</item>
+        <item name="colorSurface">@color/surface_light</item>
+        <item name="colorOnSurface">@color/on_surface_light</item>
+        <item name="colorSurfaceVariant">@color/surface_variant_light</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant_light</item>
+        <item name="colorOutline">@color/outline_light</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

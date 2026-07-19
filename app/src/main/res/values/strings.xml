@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">M-Hike</string>
+    <string name="home_title">My Hikes</string>
+    <string name="home_empty_title">No hikes planned yet</string>
+    <string name="home_empty_subtitle">Tap the button below to plan your first hike</string>
+    <string name="action_add_hike">Add hike</string>
+</resources>
