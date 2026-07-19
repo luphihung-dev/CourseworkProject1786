@@ -32,4 +32,8 @@
 
     <color name="error">#BA1A1A</color>
     <color name="on_error">#FFFFFF</color>
+
+    <!-- Brand colours taken from the M-Hike logo -->
+    <color name="brand_forest">#25411B</color>
+    <color name="brand_cream">#F6F2E4</color>
 </resources>

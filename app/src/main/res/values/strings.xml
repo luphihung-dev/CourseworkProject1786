@@ -103,4 +103,8 @@
     <string name="message_location_permission_denied">Location permission is needed to fill this in automatically.</string>
     <string name="action_share">Share</string>
     <string name="share_hike_title">Share hike</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_tagline">Plan, record and share your hikes</string>
+    <string name="action_get_started">Get started</string>
 </resources>

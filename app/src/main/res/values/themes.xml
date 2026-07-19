@@ -29,6 +29,13 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <!-- Full-bleed brand theme for the one-time welcome screen -->
+    <style name="Theme.MHike.Welcome" parent="Theme.MHike">
+        <item name="android:statusBarColor">@color/brand_forest</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/brand_forest</item>
+    </style>
+
     <!-- Label column in the hike confirmation dialog -->
     <style name="SummaryLabel">
         <item name="android:layout_width">wrap_content</item>
