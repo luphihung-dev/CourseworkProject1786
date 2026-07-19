@@ -63,4 +63,21 @@
     <string name="delete_all_title">Delete all hikes?</string>
     <string name="delete_all_message">This removes every hike stored on this device and cannot be undone.</string>
     <string name="message_all_deleted">All hikes deleted</string>
+
+    <!-- Observations -->
+    <string name="section_observations">Observations</string>
+    <string name="action_add_observation">Add</string>
+    <string name="observations_empty">No observations recorded for this hike yet.</string>
+    <string name="title_new_observation">New observation</string>
+    <string name="title_edit_observation">Edit observation</string>
+    <string name="hint_observation">Observation *</string>
+    <string name="hint_observation_time">Time of the observation *</string>
+    <string name="hint_observation_comments">Additional comments (optional)</string>
+    <string name="error_observation_required">Please describe the observation</string>
+    <string name="action_observation_options">Observation options</string>
+    <string name="action_save">Save</string>
+    <string name="message_observation_saved">Observation saved</string>
+    <string name="message_observation_deleted">Observation deleted</string>
+    <string name="delete_observation_title">Delete this observation?</string>
+    <string name="delete_observation_message">This observation will be removed. This cannot be undone.</string>
 </resources>
