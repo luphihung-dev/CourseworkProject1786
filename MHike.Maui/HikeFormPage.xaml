@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MHike.Maui.HikeFormPage"
+             Title="New hike">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="6">
+
+            <Label Text="Fields marked with * are required"
+                   FontSize="12"
+                   TextColor="{StaticResource Gray500}"
+                   Margin="0,0,0,8" />
+
+            <Label Text="Hike name *" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry" Placeholder="e.g. Snowdon Summit Loop" />
+            <Label x:Name="NameError"
+                   Text="Please enter the hike name"
+                   TextColor="{StaticResource Error}"
+                   FontSize="12"
+                   IsVisible="False" />
+
+            <Label Text="Location *" FontAttributes="Bold" Margin="0,10,0,0" />
+            <Entry x:Name="LocationEntry" Placeholder="e.g. Snowdonia, Wales" />
+            <Label x:Name="LocationError"
+                   Text="Please enter the location"
+                   TextColor="{StaticResource Error}"
+                   FontSize="12"
+                   IsVisible="False" />
+
+            <Label Text="Date of the hike *" FontAttributes="Bold" Margin="0,10,0,0" />
+            <DatePicker x:Name="HikeDatePicker" />
+
+            <Label Text="Parking available? *" FontAttributes="Bold" Margin="0,10,0,0" />
+            <HorizontalStackLayout Spacing="16">
+                <RadioButton x:Name="ParkingYesRadio" Content="Yes" GroupName="parking" />
+                <RadioButton x:Name="ParkingNoRadio" Content="No" GroupName="parking" />
+            </HorizontalStackLayout>
+            <Label x:Name="ParkingError"
+                   Text="Please state whether parking is available"
+                   TextColor="{StaticResource Error}"
+                   FontSize="12"
+                   IsVisible="False" />
+
+            <Label Text="Length (km) *" FontAttributes="Bold" Margin="0,10,0,0" />
+            <Entry x:Name="LengthEntry" Keyboard="Numeric" Placeholder="e.g. 14.5" />
+            <Label x:Name="LengthError"
+                   Text="Length must be a positive number"
+                   TextColor="{StaticResource Error}"
+                   FontSize="12"
+                   IsVisible="False" />
+
+            <Label Text="Level of difficulty *" FontAttributes="Bold" Margin="0,10,0,0" />
+            <Picker x:Name="DifficultyPicker" Title="Select a difficulty level">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Easy</x:String>
+                        <x:String>Moderate</x:String>
+                        <x:String>Challenging</x:String>
+                        <x:String>Difficult</x:String>
+                        <x:String>Expert</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Label x:Name="DifficultyError"
+                   Text="Please select a difficulty level"
+                   TextColor="{StaticResource Error}"
+                   FontSize="12"
+                   IsVisible="False" />
+
+            <Label Text="Estimated duration in hours (optional)" FontAttributes="Bold" Margin="0,10,0,0" />
+            <Entry x:Name="DurationEntry" Keyboard="Numeric" Placeholder="e.g. 6" />
+            <Label x:Name="DurationError"
+                   Text="Duration must be a positive number"
+                   TextColor="{StaticResource Error}"
+                   FontSize="12"
+                   IsVisible="False" />
+
+            <Label Text="Terrain type (optional)" FontAttributes="Bold" Margin="0,10,0,0" />
+            <Picker x:Name="TerrainPicker" Title="Select a terrain type">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Forest trail</x:String>
+                        <x:String>Mountain</x:String>
+                        <x:String>Hills</x:String>
+                        <x:String>Coastal path</x:String>
+                        <x:String>Riverside</x:String>
+                        <x:String>Country park</x:String>
+                        <x:String>Mixed</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Description (optional)" FontAttributes="Bold" Margin="0,10,0,0" />
+            <Editor x:Name="DescriptionEditor" HeightRequest="100" AutoSize="TextChanges" />
+
+            <Button Text="Save hike"
+                    FontAttributes="Bold"
+                    HeightRequest="52"
+                    CornerRadius="26"
+                    Margin="0,16,0,24"
+                    Clicked="OnSaveClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

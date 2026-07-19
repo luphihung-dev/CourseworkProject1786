@@ -14,3 +14,6 @@
 .cxx
 local.properties
 app/build/
+
+MHike.Maui/bin/
+MHike.Maui/obj/

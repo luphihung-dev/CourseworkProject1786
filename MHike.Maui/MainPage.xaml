@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MHike.Maui.Models"
+             x:Class="MHike.Maui.MainPage"
+             Title="My Hikes">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete all" Clicked="OnDeleteAllClicked" Order="Secondary" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*,Auto" Padding="16">
+
+        <!-- Shown while the user has no hikes yet -->
+        <VerticalStackLayout x:Name="EmptyStateLayout"
+                             Grid.Row="0"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="4">
+            <Label Text="No hikes planned yet"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center" />
+            <Label Text="Tap the button below to plan your first hike"
+                   TextColor="{StaticResource Gray500}"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <CollectionView x:Name="HikeCollectionView"
+                        Grid.Row="0"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Hike">
+                    <Border Stroke="{StaticResource Gray300}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="16"
+                            Margin="0,6">
+                        <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Name}"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   LineBreakMode="TailTruncation"
+                                   VerticalOptions="Center" />
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                   Text="{Binding Summary}"
+                                   TextColor="{StaticResource Gray500}"
+                                   FontSize="13"
+                                   Margin="0,4,0,0" />
+                            <Button Grid.Row="0" Grid.Column="1"
+                                    Text="Edit"
+                                    FontSize="13"
+                                    HeightRequest="36"
+                                    Padding="12,0"
+                                    Clicked="OnEditHikeClicked"
+                                    CommandParameter="{Binding .}" />
+                            <Button Grid.Row="0" Grid.Column="2"
+                                    Text="Delete"
+                                    FontSize="13"
+                                    HeightRequest="36"
+                                    Padding="12,0"
+                                    BackgroundColor="#FFDAD6"
+                                    TextColor="#410002"
+                                    Clicked="OnDeleteHikeClicked"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1"
+                Text="Add hike"
+                FontAttributes="Bold"
+                HeightRequest="52"
+                CornerRadius="26"
+                Margin="0,8,0,0"
+                Clicked="OnAddHikeClicked" />
+    </Grid>
+
+</ContentPage>
