@@ -51,4 +51,16 @@
     <string name="label_terrain">Terrain</string>
     <string name="value_not_provided">Not provided</string>
     <string name="message_hike_saved">Hike saved</string>
+
+    <!-- Hike list & details -->
+    <string name="format_date_and_length">%1$s  ·  %2$s km</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_all">Delete all hikes</string>
+    <string name="delete_hike_title">Delete this hike?</string>
+    <string name="delete_hike_message">"%1$s" and all of its observations will be removed. This cannot be undone.</string>
+    <string name="message_hike_deleted">Hike deleted</string>
+    <string name="delete_all_title">Delete all hikes?</string>
+    <string name="delete_all_message">This removes every hike stored on this device and cannot be undone.</string>
+    <string name="message_all_deleted">All hikes deleted</string>
 </resources>

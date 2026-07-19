@@ -16,12 +16,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import com.luphihung.mhike.database.HikeDao;
 import com.luphihung.mhike.model.Hike;
+import com.luphihung.mhike.util.Formats;
+import com.luphihung.mhike.util.InsetsHelper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Screen for entering a new hike or editing an existing one.
@@ -32,13 +32,6 @@ public class AddEditHikeActivity extends AppCompatActivity {
 
     /** Intent extra carrying the hike to edit; absent when adding a new hike. */
     public static final String EXTRA_HIKE = "com.luphihung.mhike.EXTRA_HIKE";
-
-    /** Format used to store dates in the database (sorts chronologically as text). */
-    private static final SimpleDateFormat STORAGE_DATE_FORMAT =
-            new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    /** Format used to show dates to the user. */
-    private static final SimpleDateFormat DISPLAY_DATE_FORMAT =
-            new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault());
 
     private TextInputLayout nameLayout;
     private TextInputLayout locationLayout;
@@ -61,16 +54,19 @@ public class AddEditHikeActivity extends AppCompatActivity {
     private String selectedDateIso;
     /** Hike being edited, or null when creating a new one. */
     private Hike hikeBeingEdited;
+    private HikeDao hikeDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_hike);
+        InsetsHelper.applySystemBarPadding(findViewById(R.id.root_layout));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
 
+        hikeDao = new HikeDao(this);
         bindViews();
         setUpDropdowns();
         setUpDatePicker();
@@ -122,8 +118,8 @@ public class AddEditHikeActivity extends AppCompatActivity {
                     .build();
             picker.addOnPositiveButtonClickListener(utcMillis -> {
                 Date picked = new Date(utcMillis);
-                selectedDateIso = STORAGE_DATE_FORMAT.format(picked);
-                dateInput.setText(DISPLAY_DATE_FORMAT.format(picked));
+                selectedDateIso = Formats.STORAGE_DATE.format(picked);
+                dateInput.setText(Formats.DISPLAY_DATE.format(picked));
                 dateLayout.setError(null);
             });
             picker.show(getSupportFragmentManager(), "hike_date_picker");
@@ -146,14 +142,14 @@ public class AddEditHikeActivity extends AppCompatActivity {
         nameInput.setText(hike.getName());
         locationInput.setText(hike.getLocation());
         selectedDateIso = hike.getDate();
-        dateInput.setText(formatDateForDisplay(hike.getDate()));
+        dateInput.setText(Formats.displayDate(hike.getDate()));
         parkingToggle.check(hike.isParkingAvailable()
                 ? R.id.button_parking_yes : R.id.button_parking_no);
-        lengthInput.setText(formatNumber(hike.getLengthKm()));
+        lengthInput.setText(Formats.compactNumber(hike.getLengthKm()));
         difficultyDropdown.setText(hike.getDifficulty(), false);
         descriptionInput.setText(hike.getDescription());
         if (hike.getEstimatedDurationHours() > 0) {
-            durationInput.setText(formatNumber(hike.getEstimatedDurationHours()));
+            durationInput.setText(Formats.compactNumber(hike.getEstimatedDurationHours()));
         }
         terrainDropdown.setText(hike.getTerrainType(), false);
     }
@@ -262,15 +258,15 @@ public class AddEditHikeActivity extends AppCompatActivity {
         View summaryView = getLayoutInflater().inflate(R.layout.dialog_hike_summary, null);
         setSummaryText(summaryView, R.id.summary_name, hike.getName());
         setSummaryText(summaryView, R.id.summary_location, hike.getLocation());
-        setSummaryText(summaryView, R.id.summary_date, formatDateForDisplay(hike.getDate()));
+        setSummaryText(summaryView, R.id.summary_date, Formats.displayDate(hike.getDate()));
         setSummaryText(summaryView, R.id.summary_parking,
                 getString(hike.isParkingAvailable() ? R.string.option_yes : R.string.option_no));
         setSummaryText(summaryView, R.id.summary_length,
-                formatNumber(hike.getLengthKm()) + " " + getString(R.string.suffix_km));
+                Formats.compactNumber(hike.getLengthKm()) + " " + getString(R.string.suffix_km));
         setSummaryText(summaryView, R.id.summary_difficulty, hike.getDifficulty());
         setSummaryText(summaryView, R.id.summary_duration,
                 hike.getEstimatedDurationHours() > 0
-                        ? formatNumber(hike.getEstimatedDurationHours()) + " "
+                        ? Formats.compactNumber(hike.getEstimatedDurationHours()) + " "
                                 + getString(R.string.suffix_hours)
                         : getString(R.string.value_not_provided));
         setSummaryText(summaryView, R.id.summary_terrain,
@@ -289,7 +285,11 @@ public class AddEditHikeActivity extends AppCompatActivity {
     }
 
     private void saveHike(Hike hike) {
-        // Persistence is added with the database layer; for now just confirm and close.
+        if (hike.getId() == Hike.UNSAVED_ID) {
+            hikeDao.insert(hike);
+        } else {
+            hikeDao.update(hike);
+        }
         Toast.makeText(this, R.string.message_hike_saved, Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -300,21 +300,5 @@ public class AddEditHikeActivity extends AppCompatActivity {
 
     private String textOf(TextInputEditText input) {
         return input.getText() == null ? "" : input.getText().toString().trim();
-    }
-
-    /** Converts a stored yyyy-MM-dd date into the user-facing format. */
-    private String formatDateForDisplay(String isoDate) {
-        try {
-            Date parsed = STORAGE_DATE_FORMAT.parse(isoDate);
-            return parsed == null ? isoDate : DISPLAY_DATE_FORMAT.format(parsed);
-        } catch (ParseException e) {
-            return isoDate;
-        }
-    }
-
-    /** Formats a number without a trailing ".0" for whole values (e.g. "5" not "5.0"). */
-    private String formatNumber(double value) {
-        return value == Math.floor(value)
-                ? String.valueOf((long) value) : String.valueOf(value);
     }
 }
