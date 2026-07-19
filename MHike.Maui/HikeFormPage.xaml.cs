@@ -45,6 +45,45 @@ public partial class HikeFormPage : ContentPage
         DescriptionEditor.Text = hike.Description;
     }
 
+    /// <summary>
+    /// Additional feature: reads the device's position once and
+    /// reverse-geocodes it into a readable place name for the location field.
+    /// </summary>
+    private async void OnUseCurrentLocationClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            var permission = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            if (permission != PermissionStatus.Granted)
+            {
+                await DisplayAlert("Permission needed",
+                    "Location permission is needed to fill this in automatically.", "OK");
+                return;
+            }
+
+            var location = await Geolocation.GetLocationAsync(new GeolocationRequest(
+                GeolocationAccuracy.Medium, TimeSpan.FromSeconds(15)));
+            if (location is null)
+            {
+                await DisplayAlert("Location unavailable",
+                    "Could not get your location. Check that location is turned on.", "OK");
+                return;
+            }
+
+            var placemarks = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
+            var place = placemarks?.FirstOrDefault();
+            LocationEntry.Text = place is null
+                ? $"{location.Latitude:F5}, {location.Longitude:F5}"
+                : string.Join(", ", new[] { place.Locality ?? place.SubAdminArea, place.CountryName }
+                    .Where(part => !string.IsNullOrEmpty(part)));
+        }
+        catch (Exception)
+        {
+            await DisplayAlert("Location unavailable",
+                "Could not get your location. Check that location is turned on.", "OK");
+        }
+    }
+
     private async void OnSaveClicked(object? sender, EventArgs e)
     {
         Hike? hike = ValidateForm();

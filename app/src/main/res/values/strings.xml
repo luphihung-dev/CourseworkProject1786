@@ -101,4 +101,6 @@
     <string name="message_locating">Finding your location…</string>
     <string name="message_location_unavailable">Could not get your location. Check that location is turned on.</string>
     <string name="message_location_permission_denied">Location permission is needed to fill this in automatically.</string>
+    <string name="action_share">Share</string>
+    <string name="share_hike_title">Share hike</string>
 </resources>

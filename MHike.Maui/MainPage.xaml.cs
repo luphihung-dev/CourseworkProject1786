@@ -45,6 +45,28 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// Additional feature: shares the hike details as plain text through
+    /// any app the user picks (messaging, email, notes...).
+    /// </summary>
+    private async void OnShareHikeClicked(object? sender, EventArgs e)
+    {
+        if (sender is Button { CommandParameter: Hike hike })
+        {
+            string shareText = $"M-Hike – {hike.Name}\n"
+                + $"Location: {hike.Location}\n"
+                + $"Date: {hike.Date:ddd, dd MMM yyyy}\n"
+                + $"Length: {hike.LengthKm} km\n"
+                + $"Difficulty: {hike.Difficulty}";
+
+            await Share.Default.RequestAsync(new ShareTextRequest
+            {
+                Title = "Share hike",
+                Text = shareText
+            });
+        }
+    }
+
     private async void OnDeleteHikeClicked(object? sender, EventArgs e)
     {
         if (sender is Button { CommandParameter: Hike hike })

@@ -74,7 +74,10 @@ public class HikeDetailActivity extends AppCompatActivity
         toolbar.setNavigationOnClickListener(v -> finish());
         toolbar.inflateMenu(R.menu.menu_hike_detail);
         toolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.action_edit_hike) {
+            if (item.getItemId() == R.id.action_share_hike) {
+                shareHike();
+                return true;
+            } else if (item.getItemId() == R.id.action_edit_hike) {
                 openEditor();
                 return true;
             } else if (item.getItemId() == R.id.action_delete_hike) {
@@ -149,6 +152,21 @@ public class HikeDetailActivity extends AppCompatActivity
                 ? getString(R.string.value_not_provided) : hike.getTerrainType());
         setText(R.id.detail_description, isBlank(hike.getDescription())
                 ? getString(R.string.value_not_provided) : hike.getDescription());
+    }
+
+    /** Sends the hike details as plain text to any app the user picks. */
+    private void shareHike() {
+        String shareText = getString(R.string.app_name) + " – " + hike.getName() + "\n"
+                + getString(R.string.label_location) + ": " + hike.getLocation() + "\n"
+                + getString(R.string.label_date) + ": " + Formats.displayDate(hike.getDate()) + "\n"
+                + getString(R.string.label_length) + ": "
+                + Formats.compactNumber(hike.getLengthKm()) + " " + getString(R.string.suffix_km) + "\n"
+                + getString(R.string.label_difficulty) + ": " + hike.getDifficulty();
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        startActivity(Intent.createChooser(sendIntent, getString(R.string.share_hike_title)));
     }
 
     private void openEditor() {

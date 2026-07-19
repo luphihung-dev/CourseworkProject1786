@@ -36,26 +36,35 @@
                             StrokeShape="RoundRectangle 12"
                             Padding="16"
                             Margin="0,6">
-                        <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
+                        <Grid ColumnDefinitions="*,Auto,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
                             <Label Grid.Row="0" Grid.Column="0"
                                    Text="{Binding Name}"
                                    FontSize="17"
                                    FontAttributes="Bold"
                                    LineBreakMode="TailTruncation"
                                    VerticalOptions="Center" />
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                                    Text="{Binding Summary}"
                                    TextColor="{StaticResource Gray500}"
                                    FontSize="13"
                                    Margin="0,4,0,0" />
                             <Button Grid.Row="0" Grid.Column="1"
+                                    Text="Share"
+                                    FontSize="13"
+                                    HeightRequest="36"
+                                    Padding="12,0"
+                                    BackgroundColor="{StaticResource Secondary}"
+                                    TextColor="{StaticResource SecondaryDarkText}"
+                                    Clicked="OnShareHikeClicked"
+                                    CommandParameter="{Binding .}" />
+                            <Button Grid.Row="0" Grid.Column="2"
                                     Text="Edit"
                                     FontSize="13"
                                     HeightRequest="36"
                                     Padding="12,0"
                                     Clicked="OnEditHikeClicked"
                                     CommandParameter="{Binding .}" />
-                            <Button Grid.Row="0" Grid.Column="2"
+                            <Button Grid.Row="0" Grid.Column="3"
                                     Text="Delete"
                                     FontSize="13"
                                     HeightRequest="36"
