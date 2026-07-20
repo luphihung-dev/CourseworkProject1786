@@ -33,7 +33,7 @@ then find any trip again in seconds with live search.
 | Living welcome | Rainy mode | Hike list | Entry form |
 |:---:|:---:|:---:|:---:|
 | <img src="docs/screenshots/welcome-sunny.jpg" width="200" /> | <img src="docs/screenshots/welcome-rainy.jpg" width="200" /> | <img src="docs/screenshots/hike-list.jpg" width="200" /> | <img src="docs/screenshots/hike-form.jpg" width="200" /> |
-| Ken Burns scenery drift | Real-time rain animation | Material 3 cards | Inline validation |
+| Ken Burns scenery drift | Real-time rain animation | Material 3 cards | Pickers over typing |
 
 | Confirmation | Detail & observations | Advanced search | Dark theme |
 |:---:|:---:|:---:|:---:|
