@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.action_search) {
                 startActivity(new Intent(this, SearchActivity.class));
                 return true;
+            } else if (item.getItemId() == R.id.action_switch_theme) {
+                switchTheme();
+                return true;
             } else if (item.getItemId() == R.id.action_delete_all) {
                 confirmDeleteAll();
                 return true;
@@ -81,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HikeDetailActivity.class);
         intent.putExtra(HikeDetailActivity.EXTRA_HIKE_ID, hike.getId());
         startActivity(intent);
+    }
+
+    /** Flips the saved light/dark preference and re-themes the app instantly. */
+    private void switchTheme() {
+        android.content.SharedPreferences prefs =
+                getSharedPreferences(WelcomeActivity.PREFS_NAME, MODE_PRIVATE);
+        boolean nowDark = !prefs.getBoolean(WelcomeActivity.KEY_DARK_THEME, false);
+        prefs.edit().putBoolean(WelcomeActivity.KEY_DARK_THEME, nowDark).apply();
+        WelcomeActivity.applySavedTheme(prefs);
     }
 
     /** Resetting the database is destructive, so the user must confirm first. */

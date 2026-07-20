@@ -9,6 +9,11 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_switch_theme"
+        android:title="@string/action_switch_theme"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_delete_all"
         android:title="@string/action_delete_all"
         app:showAsAction="never" />

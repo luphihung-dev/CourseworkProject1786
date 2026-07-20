@@ -1,49 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/brand_forest">
 
     <ImageView
-        android:id="@+id/image_logo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="32dp"
+        android:id="@+id/image_scenery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_full"
-        app:layout_constraintBottom_toTopOf="@id/text_tagline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/welcome_sunny" />
 
-    <TextView
-        android:id="@+id/text_tagline"
+    <com.luphihung.mhike.widget.RainView
+        android:id="@+id/rain_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/welcome_scrim" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/welcome_tagline"
-        android:textAppearance="?attr/textAppearanceTitleMedium"
-        android:textColor="@color/brand_cream"
-        app:layout_constraintBottom_toTopOf="@id/button_get_started"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_logo" />
+        android:layout_gravity="top|end"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="20dp"
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_get_started"
-        android:layout_width="0dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mode_sunny"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/mode_sunny"
+            app:icon="@drawable/ic_weather_sun"
+            app:iconTint="@color/brand_cream"
+            app:strokeColor="@color/brand_cream" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mode_rainy"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/mode_rainy"
+            app:icon="@drawable/ic_weather_rain"
+            app:iconTint="@color/brand_cream"
+            app:strokeColor="@color/brand_cream" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="48dp"
-        android:paddingVertical="14dp"
-        android:text="@string/action_get_started"
-        android:textColor="@color/brand_forest"
-        app:backgroundTint="@color/brand_cream"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="48dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="0.3"
+            android:text="@string/app_wordmark"
+            android:textColor="@color/brand_cream"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="28dp"
+            android:text="@string/welcome_tagline"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="@color/brand_cream" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_get_started"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="14dp"
+            android:text="@string/action_get_started"
+            android:textColor="@color/brand_forest"
+            app:backgroundTint="@color/brand_cream" />
+    </LinearLayout>
+
+</FrameLayout>

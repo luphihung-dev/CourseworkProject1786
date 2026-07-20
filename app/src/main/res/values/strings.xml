@@ -105,6 +105,10 @@
     <string name="share_hike_title">Share hike</string>
 
     <!-- Welcome screen -->
+    <string name="app_wordmark">M·HIKE</string>
     <string name="welcome_tagline">Plan, record and share your hikes</string>
     <string name="action_get_started">Get started</string>
+    <string name="mode_sunny">Sunny — light theme</string>
+    <string name="mode_rainy">Rainy — dark theme</string>
+    <string name="action_switch_theme">Switch light/dark theme</string>
 </resources>
