@@ -1,78 +1,126 @@
-# M·Hike
+<p align="center">
+  <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" width="130" alt="M-Hike logo" />
+</p>
+
+<h1 align="center">M·Hike</h1>
+
+<p align="center"><b>Plan, record and share your hikes.</b></p>
 
 <p align="center">
-  <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" width="120" alt="M-Hike logo" />
+  A hike-management app built twice with one design language —<br/>
+  once as a full native Android app in Java, once as a cross-platform prototype in .NET MAUI.
 </p>
 
 <p align="center">
-  <b>Plan, record and share your hikes.</b><br/>
-  A hike-management app built twice: once as a native Android app in Java,
-  and once as a cross-platform prototype in .NET MAUI.
+  <img src="https://img.shields.io/badge/Android-Java%20%C2%B7%20Material%203-3DDC84?logo=android&logoColor=white" alt="Android" />
+  <img src="https://img.shields.io/badge/.NET%20MAUI-C%23%20%C2%B7%20net9.0--android-512BD4?logo=dotnet&logoColor=white" alt=".NET MAUI" />
+  <img src="https://img.shields.io/badge/Storage-SQLite-003B57?logo=sqlite&logoColor=white" alt="SQLite" />
+  <img src="https://img.shields.io/badge/min%20SDK-24-informational" alt="Min SDK 24" />
+  <img src="https://img.shields.io/badge/works-offline-25411B" alt="Offline first" />
 </p>
 
 ---
 
-## Overview
+## Why M·Hike?
 
-M-Hike lets hikers plan trips in advance, log observations while on the trail
-(sightings, trail conditions, photos), and look everything up later with a fast
-search. All data is stored locally in SQLite — the app works fully offline,
-which is exactly what you want halfway up a mountain.
+Halfway up a mountain there is no signal — so everything in M·Hike lives in a
+local SQLite database and works fully offline. Plan a hike in advance, log
+observations while you walk (wildlife, trail conditions, a quick photo),
+then find any trip again in seconds with live search.
 
-The repository contains two implementations that share one design language:
+## Screenshots
+
+| Living welcome | Rainy mode | Hike list | Entry form |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/welcome-sunny.jpg" width="200" /> | <img src="docs/screenshots/welcome-rainy.jpg" width="200" /> | <img src="docs/screenshots/hike-list.jpg" width="200" /> | <img src="docs/screenshots/hike-form.jpg" width="200" /> |
+| Ken Burns scenery drift | Real-time rain animation | Material 3 cards | Inline validation |
+
+| Confirmation | Detail & observations | Advanced search | Dark theme |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/confirm-dialog.jpg" width="200" /> | <img src="docs/screenshots/hike-detail.jpg" width="200" /> | <img src="docs/screenshots/search.jpg" width="200" /> | <img src="docs/screenshots/dark-mode.jpg" width="200" /> |
+| Review before saving | Camera photos on the trail | Name, location, length, date | One tap from anywhere |
+
+<details>
+<summary><b>MAUI prototype screenshots</b></summary>
+<br/>
+
+| Hike list | Confirmation |
+|:---:|:---:|
+| <img src="docs/screenshots/maui-list.jpg" width="200" /> | <img src="docs/screenshots/maui-confirm.jpg" width="200" /> |
+
+</details>
+
+## Two implementations, one design
 
 | | Native app | Cross-platform prototype |
 |---|---|---|
 | Location | [`app/`](app) | [`MHike.Maui/`](MHike.Maui) |
 | Language | Java | C# |
 | UI toolkit | Android Views + Material 3 | .NET MAUI (XAML) |
-| Storage | SQLite (`SQLiteOpenHelper`) | SQLite (`sqlite-net-pcl`) |
+| Storage | SQLite via `SQLiteOpenHelper` | SQLite via `sqlite-net-pcl` |
 | Scope | Full feature set | Hike entry + persistence |
+
+Building the same product on both stacks was a deliberate exercise in
+comparing native and cross-platform development: the native app gets deep
+platform access (camera, adaptive icons, custom `Canvas` animation) while the
+MAUI prototype shows how far a single C# codebase can go with a fraction of
+the UI code.
 
 ## Features
 
-### Native Android app
+**Planning & recording**
+- Hike planner with name, location, date, parking, length, difficulty,
+  estimated duration, terrain type and notes — every required field validated
+  inline, and a summary dialog to confirm before anything is saved
+- Multiple timestamped observations per hike, each with optional comments and
+  a photo taken straight from the camera
+- Edit or delete any hike or observation, or reset the whole database
 
-- **Hike planner** — name, location, date, parking, length, difficulty,
-  estimated duration, terrain type and notes, with inline validation and a
-  confirmation summary before anything is saved
-- **Trail observations** — attach multiple timestamped observations to a hike,
-  each with optional comments and a photo taken straight from the camera
-- **Search** — live search-as-you-type by name, plus advanced filters for
-  location, length range and date
-- **Location autofill** — one tap fills the location field from GPS and
-  reverse-geocodes it into a readable place name
-- **Hike sharing** — send hike details to any app via the system share sheet
-- **Living welcome screen** — an animated first-launch intro (drifting scenery
-  in sunny mode, real-time rain in rainy mode) that doubles as the light/dark
-  theme picker; the theme can be switched any time from the home screen
-- **Full CRUD** — edit or delete individual hikes and observations, or reset
-  the whole database
+**Finding things again**
+- Live search-as-you-type on hike names
+- Advanced filters: location, min/max length and exact date, combinable
 
-### MAUI prototype
+**The little things**
+- One-tap GPS location autofill, reverse-geocoded to a readable place name
+- Share any hike as text through the system share sheet
+- An animated first-launch welcome screen — drifting scenery in sunny mode,
+  real-time rain in rainy mode — that doubles as the light/dark theme picker
+- Full light & dark themes, switchable any time from the home screen
 
-- Hike entry form with the same fields, validation rules and confirmation step
-- SQLite persistence with list, edit, delete and delete-all
-- GPS location autofill and hike sharing via MAUI Essentials
+## Architecture
 
-## Tech notes
+```mermaid
+flowchart LR
+    subgraph UI
+        W[WelcomeActivity] --> M[MainActivity]
+        M --> D[HikeDetailActivity]
+        M --> F[AddEditHikeActivity]
+        M --> S[SearchActivity]
+    end
+    subgraph Data
+        HD[HikeDao] --> DB[(SQLite<br/>mhike.db)]
+        OD[ObservationDao] --> DB
+    end
+    F --> HD
+    S --> HD
+    D --> HD
+    D --> OD
+```
 
-- **Native**: Material 3 components, adaptive launcher icon, edge-to-edge
-  insets handling, `RecyclerView` lists, `FileProvider` for camera photos,
-  foreign-key cascade between hikes and observations, and a custom
-  `Canvas`-based rain animation view
-- **MAUI**: single-project targeting `net9.0-android`, dependency-injected
-  database layer, `Geolocation`/`Share` from MAUI Essentials
+- Activities never touch SQL directly — all queries live in two DAO classes
+  behind a shared `SQLiteOpenHelper`
+- Hikes and observations are linked with a foreign key and `ON DELETE CASCADE`
+- The rain effect is a custom `View` drawing ~110 independently-randomised
+  drops per frame on a `Canvas`
+- Edge-to-edge insets, adaptive launcher icon and Material 3 dynamic surfaces
+  throughout
 
 ## Getting started
 
 ### Native Android app
 
-1. Open the repository root in **Android Studio** (Ladybug or newer)
-2. Let Gradle sync, then run the `app` configuration on a device or emulator
-   (min SDK 24)
-
-Or from the command line:
+Open the repository root in **Android Studio** and run the `app`
+configuration (min SDK 24), or from the command line:
 
 ```bash
 ./gradlew :app:assembleDebug
@@ -81,7 +129,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 ### MAUI prototype
 
-Requires the .NET 9 SDK with the `maui-android` workload:
+Requires the **.NET 9 SDK** with the `maui-android` workload installed:
 
 ```bash
 cd MHike.Maui
@@ -89,14 +137,18 @@ dotnet build -c Debug -p:EmbedAssembliesIntoApk=true
 adb install bin/Debug/net9.0-android/com.luphihung.mhike.maui-Signed.apk
 ```
 
-> The two apps use different application IDs, so they install side by side.
+> The two apps use different application IDs (`com.luphihung.mhike` and
+> `com.luphihung.mhike.maui`), so they install side by side on one device.
 
 ## Permissions
 
 | Permission | Used for |
 |---|---|
-| `ACCESS_FINE_LOCATION` | Filling in the hike location from GPS (optional) |
-| Camera (via system intent) | Observation photos — no camera permission needed |
+| `ACCESS_FINE_LOCATION` | Optional GPS autofill of the hike location |
+| Camera <sub>(via system intent)</sub> | Observation photos — no camera permission required |
+
+Everything stays on the device: no accounts, no analytics, no network calls
+except reverse geocoding when you ask for your location.
 
 ## Project structure
 
@@ -111,4 +163,5 @@ app/                          Native Android app (Java)
 MHike.Maui/                   Cross-platform prototype (C# / .NET MAUI)
  ├─ Models/  Data/            Entity + SQLite data layer
  └─ *.xaml                    Pages
+docs/screenshots/             Images used in this README
 ```
