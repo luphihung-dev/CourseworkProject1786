@@ -10,8 +10,8 @@
   <rect width="960" height="640" fill="#ffffff"/>
   <text x="32" y="42" font-size="18" font-weight="500" fill="#111827">M-Hike — use case diagram</text>
 
-  <rect x="250" y="70" width="560" height="520" rx="4" fill="none" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="262" y="92" font-size="11" font-weight="500" letter-spacing="0.08em" fill="#6b7280">M-HIKE</text>
+  <rect x="250" y="70" width="560" height="520" rx="4" fill="#FAFCF8" stroke="#386A20" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="262" y="92" font-size="11" font-weight="500" letter-spacing="0.08em" fill="#386A20">M-HIKE</text>
 
   <line x1="163" y1="316" x2="320" y2="130" stroke="#9ca3af" stroke-width="1"/>
   <line x1="163" y1="319" x2="320" y2="230" stroke="#9ca3af" stroke-width="1"/>
@@ -26,31 +26,31 @@
   <line x1="150" y1="330" x2="163" y2="352" stroke="#111827" stroke-width="1.5"/>
   <text x="150" y="372" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">Hiker</text>
 
-  <ellipse cx="405" cy="130" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="405" cy="130" rx="85" ry="30" fill="#E4EFDC" stroke="#386A20" stroke-width="1.2"/>
   <text x="405" y="134" font-size="13" fill="#111827" text-anchor="middle">Plan a new hike</text>
 
-  <ellipse cx="405" cy="230" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="405" cy="230" rx="85" ry="30" fill="#E4EFDC" stroke="#386A20" stroke-width="1.2"/>
   <text x="405" y="234" font-size="13" fill="#111827" text-anchor="middle">Edit or delete hikes</text>
 
-  <ellipse cx="405" cy="330" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="405" cy="330" rx="85" ry="30" fill="#E4EFDC" stroke="#386A20" stroke-width="1.2"/>
   <text x="405" y="334" font-size="13" fill="#111827" text-anchor="middle">Search hikes</text>
 
-  <ellipse cx="405" cy="430" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="405" cy="430" rx="85" ry="30" fill="#E4EFDC" stroke="#386A20" stroke-width="1.2"/>
   <text x="405" y="434" font-size="13" fill="#111827" text-anchor="middle">Record observation</text>
 
-  <ellipse cx="405" cy="530" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="405" cy="530" rx="85" ry="30" fill="#E4EFDC" stroke="#386A20" stroke-width="1.2"/>
   <text x="405" y="534" font-size="13" fill="#111827" text-anchor="middle">Share a hike</text>
 
-  <ellipse cx="655" cy="130" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="655" cy="130" rx="85" ry="30" fill="#FBEDCB" stroke="#B45309" stroke-width="1.2"/>
   <text x="655" y="134" font-size="13" fill="#111827" text-anchor="middle">Confirm details</text>
 
-  <ellipse cx="655" cy="230" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="655" cy="230" rx="85" ry="30" fill="#FBEDCB" stroke="#B45309" stroke-width="1.2"/>
   <text x="655" y="234" font-size="13" fill="#111827" text-anchor="middle">Autofill location</text>
 
-  <ellipse cx="655" cy="330" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="655" cy="330" rx="85" ry="30" fill="#FBEDCB" stroke="#B45309" stroke-width="1.2"/>
   <text x="655" y="334" font-size="13" fill="#111827" text-anchor="middle">Advanced filters</text>
 
-  <ellipse cx="655" cy="430" rx="85" ry="30" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <ellipse cx="655" cy="430" rx="85" ry="30" fill="#FBEDCB" stroke="#B45309" stroke-width="1.2"/>
   <text x="655" y="434" font-size="13" fill="#111827" text-anchor="middle">Attach photo</text>
 
   <line x1="490" y1="130" x2="562" y2="130" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrow-open)"/>
