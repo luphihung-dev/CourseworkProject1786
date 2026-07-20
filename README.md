@@ -38,7 +38,7 @@ then find any trip again in seconds with live search.
 | Confirmation | Detail & observations | Advanced search | Dark theme |
 |:---:|:---:|:---:|:---:|
 | <img src="docs/screenshots/confirm-dialog.jpg" width="200" /> | <img src="docs/screenshots/hike-detail.jpg" width="200" /> | <img src="docs/screenshots/search.jpg" width="200" /> | <img src="docs/screenshots/dark-mode.jpg" width="200" /> |
-| Review before saving | Camera photos on the trail | Name, location, length, date | One tap from anywhere |
+| Review before saving | Camera photos on the trail | Name, location, length, date | Switchable any time in-app |
 
 <details>
 <summary><b>MAUI prototype screenshots</b></summary>
