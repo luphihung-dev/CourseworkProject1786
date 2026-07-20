@@ -89,23 +89,17 @@ the UI code.
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    subgraph UI
-        W[WelcomeActivity] --> M[MainActivity]
-        M --> D[HikeDetailActivity]
-        M --> F[AddEditHikeActivity]
-        M --> S[SearchActivity]
-    end
-    subgraph Data
-        HD[HikeDao] --> DB[(SQLite<br/>mhike.db)]
-        OD[ObservationDao] --> DB
-    end
-    F --> HD
-    S --> HD
-    D --> HD
-    D --> OD
-```
+<p align="center">
+  <img src="docs/diagrams/architecture.png" width="820" alt="M-Hike native app architecture" />
+</p>
+
+<details>
+<summary><b>Use case diagram</b></summary>
+<br/>
+<p align="center">
+  <img src="docs/diagrams/use-case.png" width="820" alt="M-Hike use case diagram" />
+</p>
+</details>
 
 - Activities never touch SQL directly — all queries live in two DAO classes
   behind a shared `SQLiteOpenHelper`
