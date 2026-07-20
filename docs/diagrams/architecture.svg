@@ -14,8 +14,8 @@
   <text x="48" y="88" font-size="12" font-weight="600" letter-spacing="0.08em" fill="#6a6a6a">UI · ACTIVITIES</text>
 
   <path d="M510,162 L560,162 L560,106 L676,106" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
-  <path d="M510,174 L600,174 L600,166 L676,166" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
-  <path d="M510,186 L580,186 L580,226 L676,226" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
+  <path d="M510,174 L600,174 L600,168 L676,168" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
+  <path d="M510,186 L580,186 L580,230 L676,230" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
   <line x1="250" y1="174" x2="326" y2="174" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
 
   <rect x="60" y="148" width="190" height="52" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
@@ -26,14 +26,17 @@
   <text x="420" y="170" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">MainActivity</text>
   <text x="420" y="188" font-size="12" fill="#3a3a3a" text-anchor="middle">hike list</text>
 
-  <rect x="680" y="82" width="220" height="48" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
-  <text x="790" y="112" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">AddEditHikeActivity</text>
+  <rect x="680" y="80" width="220" height="52" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
+  <text x="790" y="101" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">AddEditHikeActivity</text>
+  <text x="790" y="119" font-size="12" fill="#3a3a3a" text-anchor="middle">hike form · validation</text>
 
-  <rect x="680" y="142" width="220" height="48" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
-  <text x="790" y="172" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">HikeDetailActivity</text>
+  <rect x="680" y="142" width="220" height="52" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
+  <text x="790" y="163" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">HikeDetailActivity</text>
+  <text x="790" y="181" font-size="12" fill="#3a3a3a" text-anchor="middle">details · observations</text>
 
-  <rect x="680" y="202" width="220" height="48" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
-  <text x="790" y="232" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">SearchActivity</text>
+  <rect x="680" y="204" width="220" height="52" rx="12" fill="#a8c5e6" stroke="#4a4a4a" stroke-width="2.5"/>
+  <text x="790" y="225" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">SearchActivity</text>
+  <text x="790" y="243" font-size="12" fill="#3a3a3a" text-anchor="middle">live search · filters</text>
 
   <line x1="480" y1="274" x2="480" y2="314" stroke="#5a5a5a" stroke-width="2" marker-end="url(#arrow-claude)"/>
   <text x="494" y="298" font-size="13" fill="#5a5a5a">CRUD calls</text>
@@ -58,12 +61,13 @@
   <path d="M770,410 L770,448 L540,448 L540,462" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-claude)"/>
 
   <ellipse cx="480" cy="478" rx="110" ry="14" fill="#e8e6e3" stroke="#4a4a4a" stroke-width="2"/>
-  <rect x="370" y="478" width="220" height="70" fill="#e8e6e3" stroke="none"/>
-  <line x1="370" y1="478" x2="370" y2="548" stroke="#4a4a4a" stroke-width="2"/>
-  <line x1="590" y1="478" x2="590" y2="548" stroke="#4a4a4a" stroke-width="2"/>
-  <path d="M370,548 A110,14 0 0 0 590,548" fill="#e8e6e3" stroke="#4a4a4a" stroke-width="2"/>
-  <text x="480" y="512" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">SQLite · mhike.db</text>
-  <text x="480" y="530" font-size="12" fill="#3a3a3a" text-anchor="middle">hikes → observations (FK, ON DELETE CASCADE)</text>
+  <rect x="370" y="478" width="220" height="80" fill="#e8e6e3" stroke="none"/>
+  <line x1="370" y1="478" x2="370" y2="558" stroke="#4a4a4a" stroke-width="2"/>
+  <line x1="590" y1="478" x2="590" y2="558" stroke="#4a4a4a" stroke-width="2"/>
+  <path d="M370,558 A110,14 0 0 0 590,558" fill="#e8e6e3" stroke="#4a4a4a" stroke-width="2"/>
+  <text x="480" y="508" font-size="16" font-weight="600" fill="#1a1a1a" text-anchor="middle">SQLite · mhike.db</text>
+  <text x="480" y="527" font-size="12" fill="#3a3a3a" text-anchor="middle">hikes → observations</text>
+  <text x="480" y="543" font-size="12" fill="#3a3a3a" text-anchor="middle">FK · ON DELETE CASCADE</text>
 
   <rect x="700" y="536" width="240" height="68" rx="8" fill="#ffffff" stroke="#4a4a4a" stroke-width="1.5"/>
   <text x="715" y="558" fill="#1a1a1a" font-size="13" font-weight="600">Legend</text>
