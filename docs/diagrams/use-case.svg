@@ -57,7 +57,7 @@
   <text x="526" y="116" font-size="13" fill="#5a5a5a" text-anchor="middle">&#171;include&#187;</text>
 
   <line x1="585" y1="208" x2="474" y2="157" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-claude)"/>
-  <text x="592" y="190" font-size="13" fill="#5a5a5a">&#171;extend&#187;</text>
+  <text x="543" y="170" font-size="13" fill="#5a5a5a" text-anchor="middle">&#171;extend&#187;</text>
 
   <line x1="566" y1="330" x2="494" y2="330" stroke="#5a5a5a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-claude)"/>
   <text x="530" y="316" font-size="13" fill="#5a5a5a" text-anchor="middle">&#171;extend&#187;</text>
